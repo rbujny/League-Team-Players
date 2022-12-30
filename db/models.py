@@ -20,16 +20,21 @@ class DbTeam(Base):
     img = Column(String)
     manager = Column(String)
     year_of_creation = Column(Integer)
-    league_id= Column(Integer, ForeignKey("leagues.id"))
+    league_id = Column(Integer, ForeignKey("leagues.id"))
     league = relationship("DbLeague", back_populates="teams")
-    # players = relationship()
+    players = relationship("DbPlayer", back_populates="team")
 
-# class DbPlayer(Base):
-#     __tablename__ = "players"
-#     name = Column(String)
-#     surname = Column(String)
-#     date_of_birth = Column(DateTime)
-#     nationality = Column(String)
-#     position = Column(String)
-#     number = Column(Integer)
-#     # team = relationship()
+
+class DbPlayer(Base):
+    __tablename__ = "players"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    last_name = Column(String)
+    img = Column(String)
+    date_of_birth = Column(DateTime)
+    age = Column(Integer)
+    nationality = Column(String)
+    position = Column(String)
+    number = Column(Integer)
+    team_id = Column(Integer, ForeignKey("teams.id"))
+    team = relationship("DbTeam", back_populates="players")

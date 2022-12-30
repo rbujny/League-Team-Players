@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from db.models import DbTeam
@@ -13,7 +11,7 @@ def create(db: Session, request: TeamBase):
         img=request.img,
         manager=request.manager,
         year_of_creation=request.year_of_creation,
-        leauge_id=request.league_id
+        league_id=request.league_id
     )
     db.add(team)
     db.commit()
@@ -24,7 +22,8 @@ def create(db: Session, request: TeamBase):
 def get_teams_league(db: Session, leauge_id: int):
     teams = db.query(DbTeam).filter(DbTeam.league_id == leauge_id).all()
     if not teams:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="This leauge doesn't exsists or have not any teams!")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="This league doesn't exsists or has not any "
+                                                                          "teams!")
     return teams
 def get_team_id(db: Session, team_id: int):
     team = db.query(DbTeam).filter(DbTeam.id == team_id).first()
