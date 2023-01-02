@@ -82,7 +82,7 @@ class PlayerDisplay(BaseModel):
     nationality: str
     position: str
     number: int
-    team_id: int
+    team: Team
 
     class Config():
         orm_mode = True

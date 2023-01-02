@@ -6,10 +6,10 @@ from routers.schemas import TeamBase
 
 def create(db: Session, request: TeamBase):
     team = DbTeam(
-        name=request.name,
-        city=request.city,
+        name=request.name.capitalize(),
+        city=request.city.capitalize(),
         img=f"images/{request.img}",
-        manager=request.manager,
+        manager=request.manager.capitalize(),
         year_of_creation=request.year_of_creation,
         league_id=request.league_id
     )

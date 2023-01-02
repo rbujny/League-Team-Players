@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 
 def add_team(db: Session, request: LeagueBase):
     league = DbLeague(
-        name=request.name,
-        country=request.country,
+        name=request.name.capitalize(),
+        country=request.country.capitalize(),
         img=f"images/{request.img}",
     )
     db.add(league)

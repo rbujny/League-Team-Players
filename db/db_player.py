@@ -15,13 +15,13 @@ def get_age(date_of_birth):
 
 def create(db: Session, request: PlayerBase):
     player = DbPlayer(
-        name=request.name,
+        name=request.name.capitalize(),
         last_name=request.last_name,
         img=f"images/{request.img}",
         date_of_birth=request.date_of_birth,
         age=get_age(request.date_of_birth),
-        nationality=request.nationality,
-        position=request.position,
+        nationality=request.nationality.capitalize(),
+        position=request.position.capitalize(),
         number=request.number,
         team_id=request.team_id
     )

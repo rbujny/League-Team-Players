@@ -26,7 +26,7 @@ def transfer_player(id: int, team_id: int, db: Session = Depends(get_db)):
 
 @router.post("/image")
 def upload_player_image(img: UploadFile = File(...)):
-    return image.upload_image(img)
+    return image.upload_image("players", img)
 
 
 @router.get("/{team_id}/players", response_model=List[PlayerDisplay])

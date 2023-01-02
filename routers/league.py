@@ -26,4 +26,4 @@ def get_all(db: Session = Depends(get_db)):
 
 @router.post("/image")
 def upload_league_image(img: UploadFile = File(...)):
-    return image.upload_image(img)
+    return image.upload_image("leagues", img)

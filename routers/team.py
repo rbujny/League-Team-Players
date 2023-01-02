@@ -21,7 +21,7 @@ def create_team(request: TeamBase, db: Session = Depends(get_db)):
 
 @router.post("/image")
 def upload_team_image(img: UploadFile = File(...)):
-    return image.upload_image(img)
+    return image.upload_image("teams", img)
 
 
 @router.get("/{league_id}/teams", response_model=List[TeamDisplay])
