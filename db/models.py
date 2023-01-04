@@ -9,6 +9,7 @@ class DbLeague(Base):
     name = Column(String)
     country = Column(String)
     img = Column(String)
+    slug = Column(String)
     teams = relationship("DbTeam", back_populates="league")
 
 
@@ -20,6 +21,7 @@ class DbTeam(Base):
     img = Column(String)
     manager = Column(String)
     year_of_creation = Column(Integer)
+    slug = Column(String)
     league_id = Column(Integer, ForeignKey("leagues.id"))
     league = relationship("DbLeague", back_populates="teams")
     players = relationship("DbPlayer", back_populates="team")
@@ -36,5 +38,14 @@ class DbPlayer(Base):
     nationality = Column(String)
     position = Column(String)
     number = Column(Integer)
+    slug = Column(String)
     team_id = Column(Integer, ForeignKey("teams.id"))
     team = relationship("DbTeam", back_populates="players")
+
+
+class DbUser(Base):
+    __tablename__ = "user"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String)
+    email = Column(String)
+    password = Column(String)

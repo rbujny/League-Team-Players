@@ -56,6 +56,7 @@ class LeagueDisplay(BaseModel):
     name: str
     country: str
     img: str
+    slug: str
     teams: List[Team]
 
     class Config():
@@ -67,6 +68,7 @@ class TeamDisplay(BaseModel):
     city: str
     img: str
     manager: str
+    slug: str
     league: League
     players: List[Player]
 
@@ -82,7 +84,28 @@ class PlayerDisplay(BaseModel):
     nationality: str
     position: str
     number: int
+    slug: str
     team: Team
 
     class Config():
         orm_mode = True
+
+
+class UserBase(BaseModel):
+    username: str
+    email: str
+    password: str
+
+
+class UserDisplay(BaseModel):
+    username: str
+    email: str
+
+    class Config():
+        orm_mode = True
+
+
+class UserAuth(BaseModel):
+    id: int
+    username: str
+    email: str

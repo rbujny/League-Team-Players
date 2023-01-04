@@ -2,6 +2,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from db.models import DbTeam
 from routers.schemas import TeamBase
+from routers.slug import name_to_slug
 
 
 def create(db: Session, request: TeamBase):
@@ -11,7 +12,8 @@ def create(db: Session, request: TeamBase):
         img=f"images/{request.img}",
         manager=request.manager.capitalize(),
         year_of_creation=request.year_of_creation,
-        league_id=request.league_id
+        league_id=request.league_id,
+        slug=name_to_slug(request.name)
     )
     db.add(team)
     db.commit()

@@ -3,10 +3,11 @@ from typing import List
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session
 
+from auth.oauth2 import get_current_user
 from db import db_player
 from db.database import get_db
 from routers import image
-from routers.schemas import PlayerDisplay, PlayerBase
+from routers.schemas import PlayerDisplay, PlayerBase, UserAuth
 
 router = APIRouter(
     prefix="/player",
@@ -15,17 +16,17 @@ router = APIRouter(
 
 
 @router.post("/", response_model=PlayerDisplay)
-def create_player(request: PlayerBase, db: Session = Depends(get_db)):
+def create_player(request: PlayerBase, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
     return db_player.create(db, request)
 
 
 @router.post("/transfer/{id}/{team_id}")
-def transfer_player(id: int, team_id: int, db: Session = Depends(get_db)):
+def transfer_player(id: int, team_id: int, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
     return db_player.transfer(db, id, team_id)
 
 
 @router.post("/image")
-def upload_player_image(img: UploadFile = File(...)):
+def upload_player_image(img: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):
     return image.upload_image("players", img)
 
 
@@ -40,5 +41,5 @@ def get_player_by_id(player_id: int, db: Session = Depends(get_db)):
 
 
 @router.delete("/delete/{id}")
-def delete_player(id: int, db: Session = Depends(get_db)):
+def delete_player(id: int, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
     return db_player.delete(db, id)

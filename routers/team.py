@@ -3,10 +3,11 @@ from typing import List
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session
 
+from auth.oauth2 import get_current_user
 from db import db_team
 from db.database import get_db
 from routers import image
-from routers.schemas import TeamDisplay, TeamBase
+from routers.schemas import TeamDisplay, TeamBase, UserAuth
 
 router = APIRouter(
     prefix="/team",
@@ -15,12 +16,12 @@ router = APIRouter(
 
 
 @router.post("/", response_model=TeamDisplay)
-def create_team(request: TeamBase, db: Session = Depends(get_db)):
+def create_team(request: TeamBase, db: Session = Depends(get_db), current_user: UserAuth = Depends(get_current_user)):
     return db_team.create(db, request)
 
 
 @router.post("/image")
-def upload_team_image(img: UploadFile = File(...)):
+def upload_team_image(img: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):
     return image.upload_image("teams", img)
 
 

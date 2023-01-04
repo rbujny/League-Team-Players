@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from db.models import DbPlayer, DbTeam
 from routers.schemas import PlayerBase
+from routers.slug import name_to_slug
 
 
 def get_age(date_of_birth):
@@ -23,6 +24,7 @@ def create(db: Session, request: PlayerBase):
         nationality=request.nationality.capitalize(),
         position=request.position.capitalize(),
         number=request.number,
+        slug=name_to_slug(request.name+" "+request.last_name),
         team_id=request.team_id
     )
     db.add(player)
