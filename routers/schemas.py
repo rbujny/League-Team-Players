@@ -68,6 +68,7 @@ class TeamDisplay(BaseModel):
     city: str
     img: str
     manager: str
+    year_of_creation: int
     slug: str
     league: League
     players: List[Player]

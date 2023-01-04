@@ -24,6 +24,10 @@ def add(request: LeagueBase, db: Session = Depends(get_db), current_user: UserAu
 def get_all(db: Session = Depends(get_db)):
     return db_league.get_all_teams(db)
 
+@router.get("/{league_id}", response_model=LeagueDisplay)
+def get_league_by_id(league_id: int, db:Session = Depends(get_db)):
+    return db_league.get_team_id(db, league_id)
+
 
 @router.post("/image")
 def upload_league_image(img: UploadFile = File(...), current_user: UserAuth = Depends(get_current_user)):

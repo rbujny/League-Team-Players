@@ -7,10 +7,10 @@ from routers.slug import name_to_slug
 
 def create(db: Session, request: TeamBase):
     team = DbTeam(
-        name=request.name.capitalize(),
-        city=request.city.capitalize(),
-        img=f"images/{request.img}",
-        manager=request.manager.capitalize(),
+        name=request.name,
+        city=request.city,
+        img=f"images/teams/{request.img}",
+        manager=request.manager,
         year_of_creation=request.year_of_creation,
         league_id=request.league_id,
         slug=name_to_slug(request.name)

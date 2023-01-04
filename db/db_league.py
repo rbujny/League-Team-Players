@@ -7,9 +7,9 @@ from sqlalchemy.orm import Session
 
 def add_team(db: Session, request: LeagueBase):
     league = DbLeague(
-        name=request.name.capitalize(),
-        country=request.country.capitalize(),
-        img=f"images/{request.img}",
+        name=request.name,
+        country=request.country,
+        img=f"images/leagues/{request.img}",
         slug=name_to_slug(request.name)
     )
     db.add(league)
@@ -20,3 +20,10 @@ def add_team(db: Session, request: LeagueBase):
 
 def get_all_teams(db: Session):
     return db.query(DbLeague).all()
+
+
+def get_team_id(db: Session, league_id: int):
+    league = db.query(DbLeague).filter(DbLeague.id == league_id).first()
+    if not league:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="League has not been found!")
+    return league
