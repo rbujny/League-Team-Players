@@ -1,4 +1,5 @@
 # League,Team,Players
+![This is an image](LTP.png)
 ## About project
 * LTP is an application where you can find info about the most popular football leagues, teams playing in it and players of a given team.
 * What's more, you can also add more league, more teams and players!
