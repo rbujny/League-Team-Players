@@ -1,0 +1,1 @@
+{"id":"e04fd1da-d0ef-4690-86c4-bddd9145636b","space":47529,"runtime":"python3.9","name":"League-Team-Players","path":"2sr7j0","project":"a0xo2utg","account":"144798365827","region":"eu-central-1","deps":["fastapi","uvicorn","sqlalchemy","passlib","bcrypt","python-multipart","aiofiles","python-jose","python-slugify"],"envs":null,"public":true,"log_level":"debug","cron":""}
