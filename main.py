@@ -14,20 +14,23 @@ app.include_router(player.router)
 app.include_router(user.router)
 app.include_router(authentication.router)
 
-origins = [
-    "http://localhost:8001"
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# origins = [
+#     "http://localhost:8001"
+# ]
+#
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"welcome": "Welcome in LTP!",
+            "docs" : "To see the full functionality of website type "
+                     "/docs in website address. "
+            }
 models.Base.metadata.create_all(engine)
 app.mount("/images", StaticFiles(directory="images"), name="images")
